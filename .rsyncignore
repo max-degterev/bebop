@@ -1,0 +1,5 @@
+.git
+.next
+config/local.js
+node_modules
+out

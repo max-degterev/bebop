@@ -1,0 +1,31 @@
+// VF=2.0V IF=20mA
+const debug = require('debug')('bebop:hardware:status-led');
+const { sleep } = require('../../utils');
+const { Gpio } = require('../../adapters');
+
+const GPIO_LED = 27;
+
+const gpio = new Gpio(GPIO_LED, { mode: Gpio.OUTPUT });
+const maxBrightness = gpio.getPwmRange();
+
+const set = (brightness = 0) => {
+  const dutyCycle = Math.floor(brightness * maxBrightness);
+  debug('Setting LED to %d%', brightness * 100);
+  gpio.pwmWrite(dutyCycle);
+};
+
+const clear = () => set(0);
+
+const blink = async(brightness = 1, duration) => {
+  set(brightness);
+  await sleep(duration);
+  clear();
+};
+
+const light = () => set(1);
+
+module.exports = {
+  blink,
+  clear,
+  light,
+};

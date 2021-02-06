@@ -1,0 +1,16 @@
+[Unit]
+Description=bebop
+
+[Service]
+WorkingDirectory=/home/pi/app/current
+ExecStart=npm run production
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=car_engine
+User=pi
+
+[Install]
+WantedBy=multi-user.target
