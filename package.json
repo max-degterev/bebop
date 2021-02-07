@@ -1,7 +1,7 @@
 {
   "name": "bebop",
   "version": "1.0.0",
-  "description": "",
+  "description": "A remotely controlled car built on Arduino Uno and Raspberry Pi.",
   "main": "index.js",
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install",
