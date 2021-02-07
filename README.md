@@ -2,7 +2,7 @@
 
 ![Finished build](./public/images/outside.jpg)
 
-<ins>be</ins>ep<ins>bo</ins>o<ins>p</ins> - a remotely controlled car. Connect it to your WiFi and let your friends drive it around the house through the power of the interwebs. Written in Javascript with some native tools doing the heavy lifting.
+<ins>be</ins>ep<ins>bo</ins>o<ins>p</ins> - a remotely controlled robocar. Connect it to your WiFi and let your friends drive it around the house through the power of the interwebs. Written in Javascript with some native tools doing the heavy lifting. Read the [story of how it was built](https://medium.com/@max.degterev/building-a-remotely-controlled-car-135838e2aeb7).
 
 ## Hardware
 You can run this software with minor modifications on almost any Raspberry Pi based system. It relies on a combination of Arduino Uno and Raspberry Pi plus some additional IO. You can skip using some of the hardware by updating [adapters](./adapters/index.js) without removing all of the code. The software for the Arduino Uno can be found in the [board](./board/bebop) folder.
@@ -18,7 +18,7 @@ I used the following as my setup:
   - [MicroSD - 32GB is more than enough](https://www.amazon.de/-/en/SanDisk-Extreme-microSDHC-Rescue-Deluxe/dp/B06XWMQ81P)
   - (Optional) [Soldering Iron - to finish the build](https://www.amazon.de/-/en/gp/product/B07S6S9844)
 
-The total cost of everything adds up to about €230. Of course you can use any compatible parts, these are here just for reference. Assemble the car as you like. I stripped away the line tracking, bluetooth and ultrasonic as I didn't need them. The car should be connected to the Raspberry Pi using a simple USB connection. The GPIO should be connected this way:
+Of course you can use any compatible parts, these are here just for reference. I stripped away the line tracking, bluetooth and ultrasonic from the car as I didn't need them. The car should be connected to the Raspberry Pi using a simple USB connection. The GPIO should be connected this way:
 
 ![GPIO Setup](./public/images/GPIO-Pinout-Diagram.png)
 
@@ -57,7 +57,7 @@ The total cost of everything adds up to about €230. Of course you can use any 
     ```
     This *should* improve FFMPEG performance, but I personally didn't notice any difference.
 
-3. Turn on your Raspberry Pi and connect via ssh: `ssh pi@raspberrypi.local` with password `raspberry`, configure SSH keys and the rest of the OS as you like.   Make sure to rename your Raspberry Pi's network name to `bebop`. Otherwise edit [package.json](./package.json) and [ecosystem.config.js](./ecosystem.config.js) with your Raspberry Pi hostname/IP address. If you don't do this some of the deployment actions will not run. The rest of the documentation assumes you have your Raspberry Pi available as `bebop.local` from now on. Reconnect the network or reboot the system for the network name change to take effect: `sudo reboot`
+3. Turn on your Raspberry Pi and connect via ssh: `ssh pi@raspberrypi.local` with password `raspberry`, configure SSH keys and the rest of the OS as you like.   Make sure to rename your Raspberry Pi's network name to `bebop`. Otherwise edit [package.json](./package.json) and [ecosystem.config.js](./ecosystem.config.js) with your Raspberry Pi hostname/IP address. If you don't do this some of the deployment actions will fail. The rest of the documentation assumes you have your Raspberry Pi available as `bebop.local`. Reconnect the network or reboot the system for the network name change to take effect: `sudo reboot`
 
 4. Update your system
  - Run `sudo raspi-config` and choose "8 Update"
@@ -98,7 +98,7 @@ The total cost of everything adds up to about €230. Of course you can use any 
   sudo npm -g config set loglevel http
   ```
 
-8. *OPTIONAL:* The onboard Raspberry camera can be made available as V4L2 device by loading a kernel module: `sudo modprobe bcm2835-v4l2`. Check [this thread](https://www.raspberrypi.org/forums/viewtopic.php?t=108038) to add it on boot. If you're using USB Webcam this is not necessary, so just carry on to the next step.
+8. *OPTIONAL:* The onboard Raspberry Pi camera can be made available as V4L2 device by loading a kernel module: `sudo modprobe bcm2835-v4l2`. Check [this thread](https://www.raspberrypi.org/forums/viewtopic.php?t=108038) to add it on boot. If you're using USB Webcam this is not necessary, so just carry on to the next step.
 
 9. Set up the deployment folder:
   ```
@@ -121,7 +121,8 @@ The total cost of everything adds up to about €230. Of course you can use any 
   sudo systemctl start bebop.service
   ```
 
-11. *OPTIONAL:* Back up your work (Mac OS instructions)
+11. *OPTIONAL:* Back up your work (Mac OS instructions):
+
   Fix your OS permissions by [giving Disk Utility Full Disk Access](https://www.filiotech.com/blog/apple/creating-disk-image-operation-canceled/), then shut down your Raspberry Pi, unplug the SD card and make a backup copy.
   
 This is it! Power up your system and navigate your browser to [bebop.local](http://bebop.local)! You should see something like this:
