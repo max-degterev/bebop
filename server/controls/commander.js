@@ -19,8 +19,13 @@ const handleConsole = (string) => {
   return konsole(kommand.trim(), args.trim());
 };
 
+// Sending these commands signals that user is connected
+const heartbeatCommands = [
+  'ping',
+];
+
 // Sending these commands signals that the user is not AFK
-const ttlCommands = [
+const activityCommands = [
   'ctrl',
   '>console',
 ];
@@ -47,4 +52,4 @@ const commander = ({ type, payload }) => {
   }
 };
 
-module.exports = { commander, cleanup, ttlCommands };
+module.exports = { commander, cleanup, heartbeatCommands, activityCommands };

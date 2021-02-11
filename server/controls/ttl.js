@@ -1,29 +1,38 @@
 const debug = require('debug')('bebop:server:controls:ttl');
-const { ttlCommands } = require('./commander');
+const { heartbeatCommands, activityCommands } = require('./commander');
 const { loop } = require('../../utils');
 
 const CODE_IDLE = 1008;
 const ERROR = 'Kicked for being idle too long.';
 
-const TTL_UPDATE_RATE = 1000;
-const TTL_IDLE = 1000 * 60 * 10; // 10 minutes
+const UPDATE_RATE = 1000;
+
+const TTL_HEARTBEAT = 1000 * 10; // 10 seconds
+const TTL_AFK = 1000 * 60 * 10; // 10 minutes
+
 
 const getTTLLoop = (ws) => {
-  let time = Date.now();
+  let lastHeartbeat = Date.now();
+  let lastActivity = Date.now();
   let lastFrame = null;
 
   const startLoop = loop(() => {
-    if (Date.now() - time <= TTL_IDLE) return;
-    debug('Idle for too long, disconnecting');
+    const isDead = Date.now() - lastHeartbeat > TTL_HEARTBEAT;
+    const isAFK = Date.now() - lastActivity > TTL_AFK;
+    if (!isDead && !isAFK) return;
+    debug('Idle for too long, dead: %o, afk: %o, disconnecting', isDead, isAFK);
     ws.close(CODE_IDLE, ERROR);
-  }, TTL_UPDATE_RATE);
+  }, UPDATE_RATE);
 
   const extendTLL = ({ type }, frame) => {
-    if (!ttlCommands.includes(type)) return;
-    // ctrl sends the same state in a loop
-    if (lastFrame === frame) return;
+    if (heartbeatCommands.includes(type)) {
+      lastHeartbeat = Date.now();
+      return;
+    }
 
-    time = Date.now();
+    // ctrl sends the same state in a loop
+    if (!activityCommands.includes(type) || lastFrame === frame) return;
+    lastActivity = Date.now();
     lastFrame = frame;
   };
 
