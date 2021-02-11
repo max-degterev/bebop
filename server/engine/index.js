@@ -1,7 +1,7 @@
 const clamp = require('lodash/clamp');
 const debug = require('debug')('bebop:server:engine');
 const { blink, clear: clearLED, light } = require('../../hardware/led');
-const { clear: clearBuzzer, beep, honk } = require('../../hardware/buzzer');
+const { clear: clearBuzzer, beep, boop, honk } = require('../../hardware/buzzer');
 const { send } = require('../../hardware/serial');
 const { loop } = require('../../utils');
 const { convertSimple } = require('./math');
@@ -127,7 +127,8 @@ const start = () => {
   debug('Engine started');
 };
 
-const stop = () => {
+const stop = (options = {}) => {
+  if (!options.silent) boop();
   startLoop.cancel();
   debug('Engine stopped');
 };

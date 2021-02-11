@@ -19,6 +19,12 @@ const handleConsole = (string) => {
   return konsole(kommand.trim(), args.trim());
 };
 
+// Sending these commands signals that the user is not AFK
+const ttlCommands = [
+  'ctrl',
+  '>console',
+];
+
 const commander = ({ type, payload }) => {
   if (!type || !payload) return;
 
@@ -41,4 +47,4 @@ const commander = ({ type, payload }) => {
   }
 };
 
-module.exports = { commander, cleanup };
+module.exports = { commander, cleanup, ttlCommands };

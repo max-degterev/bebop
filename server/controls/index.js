@@ -3,6 +3,7 @@ const { controls } = require('uni-config');
 const debug = require('debug')('bebop:server:controls');
 const { commander, cleanup } = require('./commander');
 const getUILoop = require('./uisync');
+const getTTLLoop = require('./ttl');
 const { start: startEngine, stop: stopEngine } = require('../engine');
 
 const CODE_TRY_LATER = 1013;
@@ -22,14 +23,17 @@ const listen = () => {
     isActive = true;
 
     const uiLoop = getUILoop(ws);
+    const { startLoop: startTTLLoop, extendTLL } = getTTLLoop(ws);
 
     startEngine();
     uiLoop();
+    startTTLLoop();
 
     ws.on('close', () => {
       isActive = false;
 
       uiLoop.cancel();
+      startTTLLoop.cancel();
       cleanup();
       stopEngine();
 
@@ -40,6 +44,9 @@ const listen = () => {
       try {
         const json = JSON.parse(data);
         if (!json) return;
+
+        // Our client only sends JSON, don't extend timer for bots
+        extendTLL(json, data);
 
         const response = commander(json);
         if (!response) return;

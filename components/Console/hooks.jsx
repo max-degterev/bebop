@@ -3,12 +3,10 @@ import { getID } from './utils';
 
 const KEY_TILDE = 192;
 
-export const useConsoleToggle = (available) => {
+export const useConsoleToggle = () => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (!available) return;
-
     const handler = (event) => {
       if (event.keyCode !== KEY_TILDE) return;
       event.preventDefault();
@@ -17,7 +15,7 @@ export const useConsoleToggle = (available) => {
 
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [available]);
+  }, []);
 
   return active;
 };
