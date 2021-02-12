@@ -13,13 +13,14 @@ const cleanup = () => {
 };
 
 const POLITE_MANUAL = [
-  `say <text up to ${MAX_TEXT_LENGTH} chars>`,
-  'clear',
-  'music <optional partial name of the song>',
-  'play <name of the song>',
-  'stop',
-  'rtttl <sequence>',
-  'shutdown <delay in ms>',
+  'help|list|man please - this manual',
+  `say <text up to ${MAX_TEXT_LENGTH} chars> - send text to the OLED`,
+  'clear - clear OLED',
+  'music <optional partial name of the song> - list available RTTTL songs',
+  'play <name of the song> - play RTTTL song on the buzzer',
+  'stop - stop music playback',
+  'rtttl <sequence> - play a custom RTTTL sequence on the buzzer',
+  'shutdown <delay in ms> - shut down after a delay, 0 for immediately',
 ];
 
 const PLAYLIST = Object.keys(music);
