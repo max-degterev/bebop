@@ -7,7 +7,7 @@ const ERROR = 'Kicked for being idle too long.';
 
 const UPDATE_RATE = 1000;
 
-const TTL_HEARTBEAT = 1000 * 10; // 10 seconds
+const TTL_HEARTBEAT = 1000 * 20; // 10 seconds
 const TTL_AFK = 1000 * 60 * 10; // 10 minutes
 
 
