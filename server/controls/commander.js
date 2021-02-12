@@ -19,7 +19,7 @@ const handleConsole = (string) => {
   return konsole(kommand.trim(), args.trim());
 };
 
-// Sending these commands signals that user is connected
+// Sending these commands signals that the user is connected
 const heartbeatCommands = [
   'ping',
 ];
