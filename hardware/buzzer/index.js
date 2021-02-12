@@ -6,7 +6,7 @@ const { sleep } = require('../../utils');
 const MAX_VOLUME = 950000;
 
 const BEEP_FREQUENCY = 800;
-const BOOP_FREQUENCY = 500;
+const BOOP_FREQUENCY = 200;
 const SIGNAL_VOLUME = .9;
 const SIGNAL_DURATION = 150;
 
