@@ -20,7 +20,7 @@ const Text = styled(Slanted).attrs({ background: '#f00' })`
 const TEXT_KICKED = 'You were kicked due to inactivity. Refresh browser window to reconnect.';
 const TEXT_SPECTATING = 'You are spectating';
 
-const ConnectionStatus = ({ socket }) => {
+const ConnectionStatus = ({ socket, onKick }) => {
   const [kicked, setKicked] = useState(false);
 
   useEffect(() => {
@@ -29,6 +29,7 @@ const ConnectionStatus = ({ socket }) => {
     const handler = ({ code }) => {
       if (code !== CODE_KICKED) return;
       setKicked(true);
+      onKick();
     };
 
     socket.addEventListener('close', handler);

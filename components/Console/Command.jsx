@@ -9,6 +9,7 @@ const Container = styled.ul`
 const Row = styled.li`
   padding: 0;
   line-height: 1;
+  white-space: break-spaces;
   color: ${({ response }) => (response ? '#079' : '#0b0')};
 `;
 

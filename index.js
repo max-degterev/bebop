@@ -10,6 +10,12 @@ const { onClose, sleep } = require('./utils');
 
 const BOOT_DELAY = 1000;
 
+const greeting = async() => {
+  lightOn();
+  await playMusic(sounds.start);
+  lightOff();
+};
+
 const stopCar = () => {
   stopOLED();
   stopPlaying();
@@ -28,10 +34,7 @@ const startCar = async() => {
 
   // Waiting for the modules to boot up avoids music hanging up
   await sleep(BOOT_DELAY);
-
-  lightOn();
-  await playMusic(sounds.start);
-  lightOff();
+  await greeting();
 
   console.log('Car is operational');
 };

@@ -5,8 +5,8 @@ const noop = () => {};
 const loop = (callback, rate = RATE_60_FPS) => {
   let id;
 
-  const recurring = async() => {
-    await callback();
+  const recurring = () => {
+    callback();
     id = setTimeout(recurring, rate);
   };
 
