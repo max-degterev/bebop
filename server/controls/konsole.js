@@ -31,7 +31,7 @@ const konsole = (type, payload) => {
     case 'list':
     case 'man': {
       if (payload !== 'please') return 'say the magic word!';
-      return POLITE_MANUAL.join(', ');
+      return `Console commands manual:\n  ${POLITE_MANUAL.join('\n  ')}`;
     }
     case 'say': {
       if (!payload.length) return DEFAULT_ARGUMENTS;
