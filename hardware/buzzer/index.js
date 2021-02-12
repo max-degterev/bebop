@@ -1,8 +1,8 @@
+const config = require('uni-config');
 const debug = require('debug')('bebop:hardware:buzzer');
 const { Gpio } = require('../../adapters');
 const { sleep } = require('../../utils');
 
-const GPIO_BUZZER = 12;
 const MAX_VOLUME = 950000;
 
 const BEEP_FREQUENCY = 800;
@@ -15,7 +15,7 @@ const HONK_VOLUME = 1;
 
 const MUSIC_FREQUENCY_MULTIPLIER = 1;
 
-const gpio = new Gpio(GPIO_BUZZER, { mode: Gpio.OUTPUT });
+const gpio = new Gpio(config.hardware.buzzerPin, { mode: Gpio.OUTPUT });
 
 const defaultState = {
   interrupt: false,

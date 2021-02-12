@@ -1,8 +1,8 @@
-const { i2cBus, I2C_Connection } = require('../../adapters');
+const config = require('uni-config');
 const debug = require('debug')('bebop:hardware:oled:bus');
+const { i2cBus, I2C_Connection } = require('../../adapters');
 
-const I2C_BUS = 1;
-const bus = i2cBus.openSync(I2C_BUS);
+const bus = i2cBus.openSync(config.hardware.oledBus);
 
 const SIZE_X = 128;
 const SIZE_Y = 64;

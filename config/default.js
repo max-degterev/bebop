@@ -2,6 +2,11 @@
 module.exports = {
   serial: '/dev/tty.usbmodem00001',
   audio: false,
+  hardware: {
+    ledPin: 27,
+    buzzerPin: 12,
+    oledBus: 1,
+  },
   stream: {
     fps: '25',
     videoFormat: 'avfoundation',
