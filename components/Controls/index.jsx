@@ -1,8 +1,6 @@
 import Keyboard from './Keyboard';
 
-const Controls = ({ started, socket }) => {
-  if (!started || !socket) return null;
-  return <Keyboard socket={socket} />;
-};
+// TODO: add GamePad controls
+const Controls = ({ socket }) => <Keyboard socket={socket} />;
 
 export default Controls;

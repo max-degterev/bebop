@@ -2,12 +2,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import Layout from '../components/Layout';
-import Stream from '../components/Stream';
-import HUD from '../components/HUD';
-import Controls from '../components/Controls';
-import Console from '../components/Console';
-
-import { useDelayedSocket } from '../client/hooks';
+import Interface from '../components/Interface';
+import PlayOverlay from '../components/PlayOverlay';
 
 const BoxedLayout = styled(Layout)`
   min-height: auto;
@@ -32,20 +28,14 @@ const Screen = styled.div`
 
 const Home = () => {
   const [started, setStarted] = useState(false);
-  const [canControl, setCanControl] = useState(true);
-  const socket = useDelayedSocket();
-
-  const handleStart = () => setStarted(true);
-  const handleConsoleChange = (isOpen) => setCanControl(!isOpen);
+  const handleStart = setStarted.bind(null, true);
 
   return (
     <BoxedLayout>
       <Container>
         <Screen>
-          <Stream started={started} />
-          <HUD started={started} socket={socket} onStart={handleStart} />
-          <Console started={started} socket={socket} onChange={handleConsoleChange} />
-          {canControl && <Controls started={started} socket={socket} />}
+          {started && <Interface />}
+          {!started && <PlayOverlay onClick={handleStart} />}
         </Screen>
       </Container>
     </BoxedLayout>

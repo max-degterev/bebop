@@ -1,11 +1,10 @@
 // VF=2.0V IF=20mA
+const config = require('uni-config');
 const debug = require('debug')('bebop:hardware:status-led');
 const { sleep } = require('../../utils');
 const { Gpio } = require('../../adapters');
 
-const GPIO_LED = 27;
-
-const gpio = new Gpio(GPIO_LED, { mode: Gpio.OUTPUT });
+const gpio = new Gpio(config.hardware.ledPin, { mode: Gpio.OUTPUT });
 const maxBrightness = gpio.getPwmRange();
 
 const set = (brightness = 0) => {

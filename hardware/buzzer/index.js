@@ -1,20 +1,21 @@
+const config = require('uni-config');
 const debug = require('debug')('bebop:hardware:buzzer');
 const { Gpio } = require('../../adapters');
 const { sleep } = require('../../utils');
 
-const GPIO_BUZZER = 12;
 const MAX_VOLUME = 950000;
 
 const BEEP_FREQUENCY = 800;
-const BEEP_VOLUME = .9;
-const BEEP_DURATION = 150;
+const BOOP_FREQUENCY = 500;
+const SIGNAL_VOLUME = .9;
+const SIGNAL_DURATION = 150;
 
 const HONK_FREQUENCY = 360;
 const HONK_VOLUME = 1;
 
 const MUSIC_FREQUENCY_MULTIPLIER = 1;
 
-const gpio = new Gpio(GPIO_BUZZER, { mode: Gpio.OUTPUT });
+const gpio = new Gpio(config.hardware.buzzerPin, { mode: Gpio.OUTPUT });
 
 const defaultState = {
   interrupt: false,
@@ -40,11 +41,18 @@ const set = (tone = 0, volume = 0) => {
 
 const clear = () => set();
 
-const beep = async(duration = BEEP_DURATION) => {
-  set(BEEP_FREQUENCY, BEEP_VOLUME);
+const beep = async(duration = SIGNAL_DURATION) => {
+  set(BEEP_FREQUENCY, SIGNAL_VOLUME);
   await sleep(duration);
   clear();
 };
+
+const boop = async(duration = SIGNAL_DURATION) => {
+  set(BOOP_FREQUENCY, SIGNAL_VOLUME);
+  await sleep(duration);
+  clear();
+};
+
 
 const honk = () => {
   set(HONK_FREQUENCY, HONK_VOLUME);
@@ -82,6 +90,7 @@ module.exports = {
   set,
   clear,
   beep,
+  boop,
   honk,
   play,
   stop,

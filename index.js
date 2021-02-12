@@ -13,7 +13,7 @@ const BOOT_DELAY = 1000;
 const stopCar = () => {
   stopOLED();
   stopPlaying();
-  stopEngine();
+  stopEngine({ silent: true });
   clearBuzzer();
   lightOff();
 

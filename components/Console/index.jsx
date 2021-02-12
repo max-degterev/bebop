@@ -42,21 +42,16 @@ const Container = styled.div`
   }
 `;
 
-const Console = ({ className, started, socket, onChange }) => {
-  const isAvailable = socket && started;
-
+const Console = ({ className, socket, onChange }) => {
   const ref = useRef(null);
-  const active = useConsoleToggle(isAvailable);
+  const active = useConsoleToggle();
   useEffect(() => { onChange(active); }, [active]);
-
-  if (!isAvailable) return null;
 
   const handleClick = () => ref.current.focus();
   const handleSubmit = (payload) => socket.sendJSON({ payload, type: COMMAND_CONSOLE_SEND });
-  const isVisible = active && isAvailable;
 
   return (
-    <Container className={className} active={isVisible} onClick={handleClick}>
+    <Container className={className} active={active} onClick={handleClick}>
       <History socket={socket} />
       {active && <Input onSubmit={handleSubmit} ref={ref} />}
     </Container>
