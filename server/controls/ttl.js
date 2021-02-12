@@ -24,7 +24,7 @@ const getTTLLoop = (ws) => {
     ws.close(CODE_IDLE, ERROR);
   }, UPDATE_RATE);
 
-  const extendTLL = ({ type }, frame) => {
+  const extendTTL = ({ type }, frame) => {
     if (heartbeatCommands.includes(type)) {
       lastHeartbeat = Date.now();
       return;
@@ -36,7 +36,7 @@ const getTTLLoop = (ws) => {
     lastFrame = frame;
   };
 
-  return { startLoop, extendTLL };
+  return { startLoop, extendTTL };
 };
 
 module.exports = getTTLLoop;

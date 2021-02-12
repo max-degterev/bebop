@@ -23,17 +23,17 @@ const listen = () => {
     isActive = true;
 
     const uiLoop = getUILoop(ws);
-    const { startLoop: startTTLLoop, extendTLL } = getTTLLoop(ws);
+    const { startLoop: TTLLoop, extendTTL } = getTTLLoop(ws);
 
     startEngine();
     uiLoop();
-    startTTLLoop();
+    TTLLoop();
 
     ws.on('close', () => {
       isActive = false;
 
       uiLoop.cancel();
-      startTTLLoop.cancel();
+      TTLLoop.cancel();
       cleanup();
       stopEngine();
 
@@ -46,7 +46,7 @@ const listen = () => {
         if (!json) return;
 
         // Our client only sends JSON, don't extend timer for bots
-        extendTLL(json, data);
+        extendTTL(json, data);
 
         const response = commander(json);
         if (!response) return;
