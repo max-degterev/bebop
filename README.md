@@ -4,6 +4,17 @@
 
 <ins>be</ins>ep<ins>bo</ins>o<ins>p</ins> - a remotely controlled robocar. Connect it to your WiFi and let your friends drive it around the house through the power of the interwebs. Written in Javascript with some native tools doing the heavy lifting. Read the [story of how it was built](https://medium.com/@max.degterev/building-a-remotely-controlled-car-135838e2aeb7).
 
+## Features
+ - Connects to your local home/office WiFi
+ - Live video feed
+ - Optional live audio feed
+ - Lights
+ - Simple sounds with buzzer
+ - Display messages via OLED
+ - Standby mode for low battery consumption (~3h of active use)
+ - OTA updates
+ - Remote shutdown via web interface
+
 ## Hardware
 You can run this software with minor modifications on almost any Raspberry Pi based system. It relies on a combination of Arduino Uno and Raspberry Pi plus some additional IO. You can skip using some of the hardware by updating [adapters](./adapters/index.js) without removing all of the code. The software for the Arduino Uno can be found in the [board](./board/bebop) folder.
 
