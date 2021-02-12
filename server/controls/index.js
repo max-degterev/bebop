@@ -1,6 +1,5 @@
 const { Server } = require('ws');
 const { controls } = require('uni-config');
-const debug = require('debug')('bebop:server:controls');
 const { commander, cleanup } = require('./commander');
 const getUILoop = require('./uisync');
 const getTTLLoop = require('./ttl');
@@ -16,28 +15,29 @@ const listen = () => {
   });
 
   let isActive = false;
-  socket.on('connection', (ws) => {
+  socket.on('connection', (ws, req) => {
     if (isActive) return ws.close(CODE_TRY_LATER, ERROR);
+    const { remoteAddress } = req.socket;
 
-    debug('Controlling client connected');
+    console.log(`Controlling client "${remoteAddress}" connected`);
     isActive = true;
 
     const uiLoop = getUILoop(ws);
-    const { startLoop: TTLLoop, extendTTL } = getTTLLoop(ws);
+    const { startLoop: ttlLoop, extendTTL } = getTTLLoop(ws);
 
     startEngine();
     uiLoop();
-    TTLLoop();
+    ttlLoop();
 
     ws.on('close', () => {
       isActive = false;
 
       uiLoop.cancel();
-      TTLLoop.cancel();
+      ttlLoop.cancel();
       cleanup();
       stopEngine();
 
-      debug('Controlling client disconnected');
+      console.log(`Controlling client "${remoteAddress}" disconnected`);
     });
 
     ws.on('message', (data) => {

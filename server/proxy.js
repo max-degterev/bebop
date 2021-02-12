@@ -39,10 +39,11 @@ const executor = (resolve, reject) => {
     perMessageDeflate: false,
   });
 
-  socket.on('connection', async(ws) => {
+  socket.on('connection', async(ws, req) => {
     sockets.push(ws);
+    const { remoteAddress } = req.socket;
 
-    debug('Viewer connected, active: %d', sockets.length);
+    console.log(`Viewer "${remoteAddress}" connected, active: ${sockets.length}`);
     setViewers(sockets.length);
     if (!state.stopStream) state.stopStream = await startStream();
 
@@ -51,7 +52,7 @@ const executor = (resolve, reject) => {
       if (index > -1) sockets.splice(index, 1);
 
       const viewers = sockets.length;
-      debug('Viewer disconnected, active: %d', viewers);
+      console.log(`Viewer "${remoteAddress}" disconnected, active: ${viewers}`);
       setViewers(viewers);
 
       if (!viewers && state.stopStream) {

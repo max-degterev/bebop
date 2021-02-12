@@ -36,7 +36,7 @@ const startCar = async() => {
   await sleep(BOOT_DELAY);
   await greeting();
 
-  console.log('Car is operational');
+  console.log('Car boot sequence complete');
 };
 
 onClose(stopCar);

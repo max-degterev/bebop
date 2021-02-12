@@ -106,12 +106,12 @@ const startStream = async() => {
     killAudio = startFFMPEG(audioOptions);
   }
 
-  debug('Spawned FFMPEG streams');
+  console.log('Spawned FFMPEG streams');
 
   return () => {
     killVideo();
     if (killAudio) killAudio();
-    debug('Killed FFMPEG streams');
+    console.log('Killed FFMPEG streams');
   };
 };
 
