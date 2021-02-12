@@ -7,7 +7,7 @@ import Console from '../Console';
 
 import { useDelayedSocket } from '../../client/hooks';
 
-const Home = () => {
+const Interface = () => {
   const socket = useDelayedSocket();
   const [canControl, setCanControl] = useState(true);
 
@@ -27,4 +27,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Interface;
