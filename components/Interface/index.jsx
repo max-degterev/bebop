@@ -10,13 +10,15 @@ import { useDelayedSocket } from '../../client/hooks';
 const Interface = () => {
   const socket = useDelayedSocket();
   const [canControl, setCanControl] = useState(true);
+  const [kicked, setKicked] = useState(false);
 
   const handleConsole = (isOpen) => setCanControl(!isOpen);
+  const handleKick = () => setKicked(true);
 
   return (
     <>
-      <Stream />
-      <HUD socket={socket} />
+      {!kicked && <Stream />}
+      <HUD socket={socket} onKick={handleKick} />
       {socket && (
         <>
           <Console socket={socket} onChange={handleConsole} />

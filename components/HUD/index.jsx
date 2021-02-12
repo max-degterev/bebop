@@ -12,9 +12,9 @@ const Container = styled.div`
   top: 0;
 `;
 
-const HUD = ({ socket }) => (
+const HUD = ({ socket, onKick }) => (
   <Container>
-    <ConnectionStatus socket={socket} />
+    <ConnectionStatus {...{ socket, onKick }} />
     {socket && (
       <>
         <UI socket={socket} />

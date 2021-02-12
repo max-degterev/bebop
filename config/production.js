@@ -7,4 +7,7 @@ module.exports = {
     audioFormat: 'alsa',
     audioSource: 'hw:1',
   },
+  static: {
+    port: 80,
+  },
 };

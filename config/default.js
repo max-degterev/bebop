@@ -21,6 +21,6 @@ module.exports = {
     port: 8055,
   },
   static: {
-    port: 80,
+    port: 8080,
   },
 };
